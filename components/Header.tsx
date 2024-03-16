@@ -15,7 +15,7 @@ export const Header = () => {
     const pathname = usePathname()
     return (
         <div
-            className="flex justify-between items-center px-[63px] py-[53px]  h-[65px] shadow-[rgba(0, 0, 0, 0.16)] md:h-[133px] border-b-2 border-[rgba(0, 0, 0, 0.16)]">
+            className="flex justify-between items-center px-[63px] py-[53px]  h-[65px] shadow-[rgba(0, 0, 0, 0.16)] md:h-[133px] border-b-2 border-[rgba(0, 0, 0, 0.16)] md:max-w-[1440px] md:m-auto">
             <h1 className={`${eczar.className} text-center tracking-[2.4px] antialiased font-[500] text-4xl`}>Blog
                 Base</h1>
             <div className='flex justify-between'>
@@ -26,13 +26,13 @@ export const Header = () => {
                     </Link>
                 )}
                 <div className="block relative md:hidden">
-                    {!isOpen ? <div onClick={() => openMenu}><MenuIcon/></div> :
+                    {!isOpen ? <div onClick={openMenu}><MenuIcon/></div> :
                         <div>
                             <div onClick={openMenu}>
                                 <CloseMenuIcon/>
                             </div>
                             <div
-                                className="absolute right-[-50px] w-[125px] h-[85px] flex flex-col bg-white p-4 shadow-md border border-gray-300 rounded-md">
+                                className="absolute z-100 right-[-50px] w-[125px] h-[85px] flex flex-col bg-white p-4 shadow-md border border-gray-300 rounded-md">
                                 {links.map(link =>
                                     <Link key={link.name} href={link.path}
                                           className={clsx(`${eczar.className} text-center tracking-[2.4px] mb-2  antialiased font-[400] `, {'border-b-2 border-black': pathname === link.path})}>
