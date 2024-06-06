@@ -65,7 +65,7 @@ export async function getSearchedPosts({postName, categories, orderBy, currentPa
         if (categories){
             parameters.where = {
                 ...parameters.where,
-                category: categories
+                category: {in: categories.split(',')}
             }
         }
         if(orderBy){

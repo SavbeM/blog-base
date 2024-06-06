@@ -1,5 +1,3 @@
-import React from "react";
-
 export type User = { author_name: String, email: String }
 
 export interface Article {
@@ -27,7 +25,7 @@ export type WindSize = {
 
 export interface SearchedPostsRequestParams {
     postName: string,
-    categories?: 'technology' | 'fashion' | 'travel' | "sports" | 'food',
+    categories?: ('technology' | 'fashion' | 'travel' | "sports" | 'food')[],
     orderBy: 'views' | 'date',
     currentPage: number,
     portionSize: number,

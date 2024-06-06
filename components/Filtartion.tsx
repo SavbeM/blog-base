@@ -20,11 +20,10 @@ export const Filtrartion = () => {
     const params = useSearchParams()
     const pathname = usePathname()
     const router = useRouter();
-    console.log(params.get('postName'));
     const [isOpen, setIsOpen] = useState(false);
     const [categoriesIsOpen, setCategoriesIsOpen] = useState(false)
     const windowSize = useWindowSize()
-    const [currentCategory, setCurrentCategory] = useState<string | null>(null)
+    const [currentCategory, setCurrentCategory] = useState<string[]>([])
     const [currentOrderBy, setCurrentOrderBy] = useState<string | null>(null)
     const categories = [
         {name: 'Technology', icon: <TechnologyIcon/>},
@@ -39,31 +38,50 @@ export const Filtrartion = () => {
         }
     }, [windowSize.width]);
 
+    useEffect(() => {
+        const initCategory = params.get('categories');
+        const initOrderBy = params.get('orderBy');
+        if(initCategory){
+            setCurrentCategory(initCategory.split(','))
+        }
+        if(initOrderBy){
+            setCurrentOrderBy(initOrderBy)
+        }
+    }, []);
 
     const handleSortBy = (orderBy: string) => {
         setCurrentOrderBy(orderBy);
-        debouncedHandleFiltrate({
+        handleFiltrate({
             orderBy,
             categories: params.get('categories') ? params.get('categories') : 'none',
         });
     };
 
-    const handleSetCategory = (category: string) => {
-        setCurrentCategory(params.get('categories') ===  category ? 'none' : category)
-        debouncedHandleFiltrate({
-            orderBy: params.get('orderBy') ? params.get('orderBy') : 'default',
-            categories: params.get('categories') ===  category ? 'none' : category
-        })
+const handleSetCategory = (category: string) => {
+    let newCategories: string[] = [...currentCategory];
+
+    if (newCategories.includes(category)) {
+        newCategories = newCategories.filter((cat) => cat !== category);
+    } else {
+        newCategories.push(category);
     }
+
+    setCurrentCategory(newCategories);
+
+    handleFiltrate({
+        orderBy: params.get('orderBy') ? params.get('orderBy') : 'default',
+        categories: newCategories.join(','),
+    });
+};
     const handleFiltrate = (options: Options) => {
         const newSearchParams = new URLSearchParams();
         const postName = params.get('postName');
-        console.log(params.get('postName'))
+
         if(postName){
             newSearchParams.set('postName', postName);
         }
 
-        if (options.categories === 'none') {
+        if (!options.categories && options.categories?.length === 0) {
             newSearchParams.delete('categories');
         } else if (options.categories) {
             newSearchParams.set('categories', options.categories);
@@ -79,10 +97,9 @@ export const Filtrartion = () => {
 
     };
 
-    const debouncedHandleFiltrate = useMemo(() => debounce(handleFiltrate, 1000), [])
 
     return (
-        <div className='flex flex-row h-full mb-[100px]'>
+        <div data-testid="filtration" className='flex flex-row h-full mb-[100px]'>
             {windowSize.width && windowSize.width > 768 && (
                 <div onClick={() => setIsOpen((prevState) => !prevState)}
                      className={clsx("p-[9px] h-[43px] cursor-pointer border border-solid border-gray-500 rounded-l-md md:visible md:ml-2", {"rounded-r": !isOpen})}>
@@ -109,7 +126,7 @@ export const Filtrartion = () => {
 
                             return (
                                 <div onClick={() => handleSetCategory(category.name.toLowerCase())} key={category.name} title={category.name}
-                                     className={clsx('flex items-center justify-center flex-row border border-gray-500 cursor-pointer p-[5px] rounded', {'bg-gray-300': currentCategory === category.name.toLowerCase()})}>
+                                     className={clsx('flex items-center justify-center flex-row border border-gray-500 cursor-pointer p-[5px] rounded', {'bg-gray-300': currentCategory?.includes(category.name.toLowerCase())})}>
                                     {category.icon}</div>
                             )
                         })}
