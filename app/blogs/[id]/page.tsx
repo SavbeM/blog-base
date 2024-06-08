@@ -12,6 +12,7 @@ export default async function Post({params}: { params: { id: string } }) {
     const post = await getPost(+params.id)
     let dateObject = new Date(post.publish_date);
     let monthName = new Intl.DateTimeFormat('en-US', {month: 'long'}).format(dateObject);
+    // @ts-ignore
     const formattedDate = `${monthName} ${post.publish_date.getDate()}, ${post.publish_date.getFullYear()}`
     const tags = post.tags?.split(' ').map((tag: string) => `#${tag}`).join(' ')
 

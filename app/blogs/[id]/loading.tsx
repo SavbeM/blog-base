@@ -1,4 +1,3 @@
-import {chapter, inter} from "@/fonts/fonts";
 import {SocialIcon} from "react-social-icons/component";
 import {SpinnerIcon, ViewsIcon} from "@/components/icons/Icons";
 

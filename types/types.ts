@@ -33,7 +33,9 @@ export interface SearchedPostsRequestParams {
 }
 
 export interface ArticlesSliceState{
-    posts: Article[]
+    posts: Article[],
+    fetching: boolean,
+    error: string | null
 }
 
 export interface GlobalSliceState{

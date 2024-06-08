@@ -1,15 +1,13 @@
 'use client'
 import {Article, SearchedPostsRequestParams} from "@/types/types";
-import React, {memo, useEffect, useState} from "react";
+import React, {memo, useEffect} from "react";
 import Image from "next/image";
 import {inter} from "@/fonts/fonts";
-import {getSearchedPostsAction} from "@/app/actions";
 import {markMatches} from "@/utils/markMatches";
 import {useAppDispatch, useAppSelector} from "@/Hooks/reduxHooks";
-import {addPosts, setPosts} from "@/store/articlesSlice";
+import {getArticlesThunk} from "@/store/articlesSlice";
 import {Provider} from "react-redux";
 import {store} from "@/store/store";
-import {serializePosts} from "@/utils/serializePosts";
 import {debounce} from "lodash";
 
 const PostsTable = memo(function PostTable({
@@ -23,19 +21,10 @@ const PostsTable = memo(function PostTable({
     const dispatch = useAppDispatch()
     const posts = useAppSelector((state) => state.articles.posts)
     const type = useAppSelector(state => state.global.type)
-
+    const fetching = useAppSelector(state => state.articles.fetching)
 
     const debouncedGetSearchedPosts = debounce((params) => {
-        getSearchedPostsAction(params).then((data) => {
-            if (data) {
-                const serializedPosts = serializePosts(data)
-                if (type === 'mobile') {
-                    dispatch(addPosts(serializedPosts))
-                } else {
-                    dispatch(setPosts(serializedPosts))
-                }
-            }
-        });
+        dispatch(getArticlesThunk(params))
     }, 1000);
 
 
@@ -53,6 +42,8 @@ const PostsTable = memo(function PostTable({
         }
     }, [categories, currentPage, dispatch, orderBy, portionSize, postName, type]);
 
+    if(fetching){ return <div>Loading...</div>}
+    else
     return (
         <div data-testid="posts-table" className='flex justify-center items-center flex-col max-w-[335px] '>
             {posts.map((post: Article) => {

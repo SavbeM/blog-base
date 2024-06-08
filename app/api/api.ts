@@ -49,7 +49,6 @@ export async function getRecommendations(category: string): Promise<Article[]> {
 
 export async function getSearchedPosts({postName, categories, orderBy, currentPage, portionSize, type} : SearchedPostsRequestParams): Promise<Article[]> {
     const offset = (currentPage - 1) * portionSize
-    noStore()
 
     try {
         const parameters: any = {}
@@ -65,6 +64,7 @@ export async function getSearchedPosts({postName, categories, orderBy, currentPa
         if (categories){
             parameters.where = {
                 ...parameters.where,
+                // @ts-ignore
                 category: {in: categories.split(',')}
             }
         }
