@@ -1,5 +1,5 @@
 import {SocialIcon} from "react-social-icons/component";
-import {SpinnerIcon, ViewsIcon} from "@/components/icons/Icons";
+import {SpinnerIcon} from "@/components/icons/Icons";
 
 
 export default function PostLoading() {

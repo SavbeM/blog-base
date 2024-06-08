@@ -42,15 +42,23 @@ const PostsTable = memo(function PostTable({
         }
     }, [categories, currentPage, dispatch, orderBy, portionSize, postName, type]);
 
-    if(fetching){ return <div>Loading...</div>}
-    else
-    return (
-        <div data-testid="posts-table" className='flex justify-center items-center flex-col max-w-[335px] '>
-            {posts.map((post: Article) => {
-                return (
-                    <div data-testid="post" key={post.id} className='flex flex-col items-center mb-[50px]'>
-                        <Image width={335} height={194} src='http://via.placeholder.com/640x360'
-                               alt='/placeholder.svg'/>
+    if(fetching){ return <div className="flex min-h-screen flex-col items-center space-y-4">
+        {[...Array(5)].map((_, i) => (
+            <div key={i} className="flex flex-col items-center space-y-2">
+                <div className="w-64 h-32 bg-gray-300 animate-pulse rounded"></div>
+                <div className="w-64 h-4 bg-gray-300 animate-pulse rounded"></div>
+                <div className="w-64 h-4 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+        ))}
+    </div>
+    } else
+        return (
+            <div data-testid="posts-table" className='min-h-screen flex justify-center items-center flex-col max-w-[335px]'>
+                {posts.map((post: Article) => {
+                    return (
+                        <div data-testid="post" key={post.id} className='flex flex-col items-center mb-[50px]'>
+                            <Image width={335} height={194} src='http://via.placeholder.com/640x360'
+                                   alt='/placeholder.svg'/>
                         <div
                             className={`${inter.className} text-center mt-[10px]`}>{postName ? markMatches(post.title, postName) : post.title}</div>
                     </div>

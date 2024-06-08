@@ -73,7 +73,6 @@ export async function getSearchedPosts({postName, categories, orderBy, currentPa
                 [orderBy]: 'asc'
             }
         }
-        console.log(parameters)
         return await prisma.articles.findMany({
             ...parameters
         })
@@ -85,7 +84,8 @@ export async function getSearchedPosts({postName, categories, orderBy, currentPa
 
 export async function getTotalPages(portionSize: number) {
     try {
-        const postsCount = prisma.articles.count()
+        const postsCount = await prisma.articles.count()
+        console.log(postsCount)
         return postsCount / portionSize
     }
     catch (e) {

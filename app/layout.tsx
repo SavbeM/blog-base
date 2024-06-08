@@ -6,6 +6,7 @@ import {Header} from "@/components/Header";
 import {Footer} from "@/components/Footer";
 
 
+
 export const metadata: Metadata = {
     title: "blog-base",
     description: "Blog hosting service",
