@@ -53,7 +53,7 @@ export const Filtrartion = () => {
         setCurrentOrderBy(orderBy);
         handleFiltrate({
             orderBy,
-            categories: params.get('categories') ? params.get('categories') : 'none',
+            categories: params.get('categories') ? params.get('categories') : null,
         });
     };
 

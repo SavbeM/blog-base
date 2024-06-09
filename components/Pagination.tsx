@@ -43,7 +43,7 @@ export const Pagination = ({totalPages}: { totalPages: number }) => {
 
     if (type === 'mobile') {
         return (
-            <button onClick={handleShowMore}>
+            <button className="px-4 py-2 border border-black" onClick={handleShowMore}>
                 Show More
             </button>
         )

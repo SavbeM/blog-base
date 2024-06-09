@@ -45,9 +45,9 @@ const PostsTable = memo(function PostTable({
     if(fetching){ return <div className="flex min-h-screen flex-col items-center space-y-4">
         {[...Array(5)].map((_, i) => (
             <div key={i} className="flex flex-col items-center space-y-2">
-                <div className="w-64 h-32 bg-gray-300 animate-pulse rounded"></div>
-                <div className="w-64 h-4 bg-gray-300 animate-pulse rounded"></div>
-                <div className="w-64 h-4 bg-gray-300 animate-pulse rounded"></div>
+                <div className="w-[335px] h-[188px] bg-gray-300 animate-pulse rounded"></div>
+                <div className="w-[335px] h-4 bg-gray-300 animate-pulse rounded"></div>
+                <div className="w-[335px] h-4 bg-gray-300 animate-pulse rounded"></div>
             </div>
         ))}
     </div>
