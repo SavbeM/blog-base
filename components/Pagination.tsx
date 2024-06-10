@@ -56,47 +56,49 @@ export const Pagination = ({totalPages}: { totalPages: number }) => {
 
         return pages
     }, [totalPages, currentPage]);
-
-    if (type === 'mobile') {
-        return (
-            <div className="flex items-center space-x-2 mb-6">
-                <button
-                    onClick={() => setCurrentPage(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className={`px-4 py-2 ${inter.className} border border-gray-300 rounded bg-white text-black`}
-                >
-                    Prev
-                </button>
-                <div>{currentPage}</div>
-                <button
-                    onClick={() => setCurrentPage(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                    className={`px-4 py-2 ${inter.className} border border-gray-300 rounded bg-white text-black`}
-                >
-                    Next
-                </button>
-            </div>
-        )
-    } else {
-        return (
-            <div className="flex items-center space-x-2 mb-6">
-                <button
-                    onClick={() => setCurrentPage(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className={`px-4 py-2 ${inter.className} border border-gray-300 rounded bg-white text-black`}
-                >
-                    Prev
-                </button>
-                {renderPages}
-                <button
-                    onClick={() => setCurrentPage(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                    className={`px-4 py-2 ${inter.className} border border-gray-300 rounded bg-white text-black`}
-                >
-                    Next
-                </button>
-            </div>
-        )
+    if(totalPages <= 1) return null
+    else {
+        if (type === 'mobile') {
+            return (
+                <div className="flex items-center space-x-2 mb-6">
+                    <button
+                        onClick={() => setCurrentPage(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className={`px-4 py-2 ${inter.className} border border-gray-300 rounded bg-white text-black`}
+                    >
+                        Prev
+                    </button>
+                    <div>{currentPage}</div>
+                    <button
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className={`px-4 py-2 ${inter.className} border border-gray-300 rounded bg-white text-black`}
+                    >
+                        Next
+                    </button>
+                </div>
+            )
+        } else {
+            return (
+                <div className="flex items-center space-x-2 mb-6">
+                    <button
+                        onClick={() => setCurrentPage(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className={`px-4 py-2 ${inter.className} border border-gray-300 rounded bg-white text-black`}
+                    >
+                        Prev
+                    </button>
+                    {renderPages}
+                    <button
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className={`px-4 py-2 ${inter.className} border border-gray-300 rounded bg-white text-black`}
+                    >
+                        Next
+                    </button>
+                </div>
+            )
+        }
     }
 }
 

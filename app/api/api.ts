@@ -48,11 +48,11 @@ export async function getRecommendations(category: string): Promise<Article[]> {
     }
 }
 
-export async function getSearchedPosts({postName, categories, orderBy, currentPage, portionSize, type} : SearchedPostsRequestParams): Promise<Article[]> {
-    const offset = (currentPage - 1) * portionSize
+export async function getSearchedPosts(searchedParams : SearchedPostsRequestParams): Promise<Article[]> {
+    const offset = (searchedParams.currentPage - 1) * searchedParams.portionSize
 
     try {
-        const parameters = new Params({postName, categories, orderBy, currentPage, portionSize, type}, offset)
+        const parameters = new Params(searchedParams, offset)
 
         return await prisma.articles.findMany({
             ...parameters

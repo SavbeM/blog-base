@@ -2,7 +2,7 @@
 import {Article, SearchedPostsRequestParams} from "@/types/types";
 import React, {memo, useEffect} from "react";
 import Image from "next/image";
-import {inter} from "@/fonts/fonts";
+import {eczar, inter} from "@/fonts/fonts";
 import {markMatches} from "@/utils/markMatches";
 import {useAppDispatch, useAppSelector} from "@/Hooks/reduxHooks";
 import {getArticlesThunk} from "@/store/articlesSlice";
@@ -51,7 +51,14 @@ const PostsTable = memo(function PostTable({
             </div>
         ))}
     </div>
-    } else
+    } if(posts.length === 0){
+        return <div className="flex my-36 items-center justify-center">
+           <h1 className={`${eczar.className} text-3xl`}>
+                No posts found
+           </h1>
+        </div>
+    }
+    else
         return (
             <div data-testid="posts-table" className='min-h-screen flex justify-center items-center flex-col max-w-[335px]'>
                 {posts.map((post: Article) => {
