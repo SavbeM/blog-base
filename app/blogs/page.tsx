@@ -10,7 +10,7 @@ import {SearchedPostsRequestParams} from "@/types/types";
 export default async function Blogs({searchParams}: { searchParams: SearchedPostsRequestParams }) {
     const portionSize: number = 5
     const currentPage: number = searchParams.currentPage || 1
-    const totalPages: number = await getTotalPages(portionSize)
+    const totalPages: number = await getTotalPages(portionSize, searchParams)
 
     return (
         <div className="flex min-h-screen flex-col items-center">
