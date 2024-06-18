@@ -1,10 +1,3 @@
-import Link from "next/link";
-import Image from "next/image";
-import {inter} from "@/fonts/fonts";
-import {ViewsIcons} from "@/components/icons/Icons";
-
-
-
 export const TrendingPostsPlaceholder = () => {
 
     const placeholders = Array.from({ length: 12 }, (_, index) => (

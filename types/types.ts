@@ -2,7 +2,7 @@ export type User = { author_name: String, email: String }
 
 export interface Article {
     id: number;
-    author: User;
+    author?: User;
     author_id: number;
     publish_date: Date | string;
     content: string;

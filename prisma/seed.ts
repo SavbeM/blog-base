@@ -1,14 +1,27 @@
-import {prisma} from "@/prisma/client";
+import { PrismaClient } from '@prisma/client'
 import {Article, User} from "@/types/types";
 const fs = require('fs')
 
+const prisma = new PrismaClient()
 const jsonDataUsers = fs.readFileSync('users.json');
 const users = JSON.parse(jsonDataUsers);
 const emails = users.map((user: User) => user.email)
 const jsonDataArticles = fs.readFileSync('articles.json')
 const articles = JSON.parse(jsonDataArticles);
 const publishedDate = articles.map((article: Article) => article.publish_date)
+
+
+type PlaceholderImage = {
+    id: number;
+    author: string;
+    width: number;
+    height: number;
+    url: string;
+    download_url: string;
+}
+
 async function main() {
+
     const existedUsers = await prisma.user.findMany({
         where: {
             email: {
@@ -32,8 +45,7 @@ async function main() {
     const newArticles = await  prisma.articles.createMany(({
         data: articlesToAdd
     }))
-
-    console.log(newUsers, newArticles)
+    console.log({newUsers, newArticles})
 }
 
 main()

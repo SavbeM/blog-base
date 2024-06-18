@@ -7,9 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "npx ts-node prisma/seed.ts",
+    "seed": "node prisma/seed.ts",
+    "update-images": "ts-node prisma/image_script.ts",
     "test": "jest",
     "test:watch": "jest --watch"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.ts"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.1",

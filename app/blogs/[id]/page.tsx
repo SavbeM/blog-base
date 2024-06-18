@@ -19,7 +19,7 @@ export default async function Post({params}: { params: { id: string } }) {
     return (
         <div className="flex flex-col m-auto items-center h-full">
             <h1 className={`${chapter.className} mx-[20px] text-[36px] text-center max-w-[750px] font-[700] md:text-[64px]  md:my-[48px]`}>{post.title}</h1>
-            <Image className=' overflow-hidden rounded-md' width={640} height={420} src='/HomePage.png'
+            <Image className=' overflow-hidden rounded-md' width={640} height={420} src={post.featured_image}
                    alt='/HomePage.png'/>
             <div className='flex flex-col w-full h-full max-md:max-w-[335px] md:w-[640px]'>
                 <hr className='w-full my-[30px] h-1 bg-black'/>
@@ -27,7 +27,7 @@ export default async function Post({params}: { params: { id: string } }) {
                     <div className='flex flex-row items-center'>
                         <Image className='rounded-full' src='/avatar.jpg' alt='/avatar.jpg' width={57} height={57}/>
                         <div className='flex flex-col ml-[16px]'>
-                            <h3 className={`${inter.className} font-[700] text-[13px] tracking-[0.8px] md:text-[16px]`}>{post.author.author_name.toUpperCase()}</h3>
+                            <h3 className={`${inter.className} font-[700] text-[13px] tracking-[0.8px] md:text-[16px]`}>{post?.author?.author_name.toUpperCase() ?? "author"}</h3>
                             <p>{formattedDate}</p>
                         </div>
                     </div>

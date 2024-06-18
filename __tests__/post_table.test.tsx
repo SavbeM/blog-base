@@ -19,7 +19,7 @@ jest.mock("@/app/actions", () => ({
 
 describe('Post Table', () => {
     it('should render the component', async () => {
-        render(<PostsTableProvider postName='test' categories='food' orderBy='views' currentPage={1} portionSize={4}/>)
+        render(<PostsTableProvider postName='test' categories={["food"]} orderBy='views' currentPage={1} portionSize={4}/>)
         expect(getByTestId(document.documentElement, 'posts-table')).toBeInTheDocument();
     });
     it('should render all posts', async () => {
@@ -85,7 +85,7 @@ describe('Post Table', () => {
                 (async function () {
                     const posts = await getSearchedPostsAction({
                         postName: 'test',
-                        categories: 'food',
+                        categories: ['food'],
                         orderBy: 'views',
                         currentPage: 1,
                         portionSize: 4,
@@ -104,7 +104,7 @@ describe('Post Table', () => {
             render(
                 <Provider store={store}>
                     <MockState/>
-                    <PostsTableProvider postName="test" categories="food" orderBy="views" currentPage={1}
+                    <PostsTableProvider postName="test" categories={["food"]} orderBy="views" currentPage={1}
                                         portionSize={5}/>
                 </Provider>)
         });

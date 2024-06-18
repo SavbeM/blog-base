@@ -12,7 +12,10 @@ export const Recommendations = async ({category}: { category: string}) => {
                 return (
                     <div key={post.id} className='max-md:mt-[42px]'>
                         <Link href={`/blogs/${post.id}`}>
-                            <Image className='m-auto' width={304} height={176} src='/placeholder.svg' alt='/placeholder.svg'/>
+                            <div className="w-[304px] h-[176px] rounded overflow-hidden">
+                            <Image className='m-auto' width={304} height={176} src={post.featured_image}
+                                   alt='/placeholder.svg'/>
+                            </div>
                         </Link>
                         <Link href={`/blogs/${post.id}`}>
                             <h1 className={`${inter.className} mt-[20px] text-[22px] font-[500] m-auto w-[262px] text-center  hover:decoration-solid hover:underline`}>{post.title}</h1>
